@@ -6,14 +6,13 @@
     <title>Abhivishrut Janghu - Portfolio</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCHJ201FXH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WCHJ201FXH');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCHJ201FXH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WCHJ201FXH');
+    </script>
     <style>
         * {
             margin: 0;
@@ -27,27 +26,148 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 450px;
             margin: 0 auto;
             background: white;
-            padding: 40px 30px;
+            min-height: 100vh;
         }
 
-       .profile-section {
-            text-align: center;
-            margin-bottom: 40px;
+        /* Header Section */
+        .header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .company-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .company-info {
+            flex: 1;
+        }
+
+        .company-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .company-tagline {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* Image Slider */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 25px 20px;
+            background: white;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        .about-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 25px 20px;
+            background: white;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: #f0f0f0;
-            margin: 0 auto 20px;
-            border: 0px solid #e0e0e0;
             overflow: hidden;
+            flex-shrink: 0;
             cursor: pointer;
             transition: transform 0.2s;
+            border: 3px solid #f0f0f0;
         }
 
         .profile-pic:hover {
@@ -58,6 +178,29 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a73e8;
+            margin-bottom: 6px;
+        }
+
+        .profile-email {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .profile-phone {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
         }
 
         /* Modal Styles */
@@ -128,81 +271,81 @@
             from { transform: scale(0.8); }
             to { transform: scale(1); }
         }
-        
 
-        .youtube-section {
-            margin: 30px 0;
+        /* Loot Mafia Section */
+        .loot-section {
+            padding: 25px 20px;
+            background: white;
         }
 
-        .youtube-scroll {
+        .loot-description {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .loot-channels {
             display: flex;
             gap: 15px;
-            overflow-x: auto;
-            padding: 10px 0;
-            scroll-behavior: smooth;
+            justify-content: flex-start;
         }
 
-        .youtube-scroll::-webkit-scrollbar {
-            height: 8px;
+        .channel-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            flex: 0 0 auto;
         }
 
-        .youtube-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
+        .channel-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
         }
 
-        .youtube-scroll::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
+        .channel-icon:hover {
+            transform: scale(1.05);
         }
 
-        .youtube-scroll::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        .channel-icon.whatsapp { background: #25D366; }
+        .channel-icon.telegram { background: #0088cc; }
+
+        .channel-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: white;
         }
 
-        .youtube-video {
-            flex: 0 0 280px;
-            height: 158px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .channel-label {
+            font-size: 11px;
+            color: #333;
+            text-align: center;
+            max-width: 80px;
+            font-weight: 500;
         }
 
-        .youtube-video iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        /* Social Media Section */
+        .social-section {
+            padding: 25px 20px;
+            background: white;
         }
 
-        .name {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .email {
+        .social-description {
+            font-size: 12px;
             color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .id-number {
-            font-size: 36px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 30px 0 4px 0;
+            margin-bottom: 20px;
         }
 
         .social-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin-bottom: 20px;
         }
 
         .social-item {
@@ -228,27 +371,14 @@
             transform: scale(1.1);
         }
 
-        .social-icon.codewati {
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-}
-
-.social-icon.codewati img {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-}
-        
-        .social-icon.facebook { background: #1877F2; }
+        .social-icon.wishlink { background: #F89340; }
         .social-icon.instagram { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
-        .social-icon.x { background: #000; }
+        .social-icon.facebook { background: #1877F2; }
         .social-icon.youtube { background: #FF0000; }
         .social-icon.github { background: #333; }
+        .social-icon.x { background: #000; }
         .social-icon.blogger { background: #FF5722; }
-        .social-icon.gmail { background: #EA4335; }
         .social-icon.forms { background: #673AB7; }
-        .social-icon.whatsapp { background: #25D366; }
-        .social-icon.telegram { background: #0088cc; }
 
         .social-icon svg {
             width: 32px;
@@ -257,33 +387,66 @@
         }
 
         .social-label {
-            font-size: 12px;
+            font-size: 11px;
             text-align: center;
             max-width: 70px;
+            font-weight: 500;
         }
 
-        .loot-section {
-            margin: 30px 0;
+        /* YouTube Section */
+        .youtube-section {
+            padding: 25px 20px;
+            background: white;
         }
 
-        .loot-description {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 15px;
+        .youtube-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-behavior: smooth;
         }
 
-        .loot-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+        .youtube-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .youtube-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .youtube-scroll::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .youtube-video {
+            flex: 0 0 240px;
+            height: 135px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .youtube-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* GitHub Section */
+        .github-section {
+            padding: 25px 20px;
+            background: white;
         }
 
         .repo-card {
             background: #f8f9fa;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 16px;
+            margin-bottom: 12px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -293,11 +456,12 @@
         }
 
         .repo-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #0366d6;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-decoration: none;
+            display: inline-block;
         }
 
         .repo-name:hover {
@@ -305,16 +469,16 @@
         }
 
         .repo-description {
-            font-size: 13px;
+            font-size: 12px;
             color: #666;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             line-height: 1.5;
         }
 
         .repo-stats {
             display: flex;
             gap: 15px;
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
         }
 
@@ -324,115 +488,162 @@
             gap: 4px;
         }
 
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-
         .language-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             display: inline-block;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="profile-pic" onclick="openModal()">
-                <img src="profile.webp" alt="Abhivishrut Janghu">
+        <!-- Header -->
+        <div class="header">
+            <div class="company-logo">
+                <img src="codewatilogo.png" alt="Codewati Logo">
             </div>
-            <div class="name">Abhivishrut Janghu</div>
-            <div class="email">codewatipvtltd@gmail.com</div>
-            <div class="id-number">+91 6396 577 959</div>
+            <div class="company-info">
+                <div class="company-name">Codewati Tech Pvt. Ltd.</div>
+                <div class="company-tagline">We Build What Businesses Need.</div>
+            </div>
         </div>
 
-        <!-- Social Media Platforms -->
-        <h2 class="section-title" style="margin-Bottom: 24px;">Social Media Platforms</h2>
-        <div class="social-grid">
+        <!-- Image Slider -->
+        <div class="slider-container">
+            <div class="slider" id="slider">
+                <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div style="color: white; text-align: center; padding: 20px;">
+                        <h2 style="font-size: 24px; margin-bottom: 10px;">Welcome</h2>
+                        <p style="font-size: 14px;">Building Innovative Solutions</p>
+                    </div>
+                </div>
+                <div class="slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div style="color: white; text-align: center; padding: 20px;">
+                        <h2 style="font-size: 24px; margin-bottom: 10px;">Technology</h2>
+                        <p style="font-size: 14px;">Modern Web Development</p>
+                    </div>
+                </div>
+                <div class="slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div style="color: white; text-align: center; padding: 20px;">
+                        <h2 style="font-size: 24px; margin-bottom: 10px;">Innovation</h2>
+                        <p style="font-size: 14px;">Creative Digital Solutions</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+            </div>
+        </div>
 
-            <a href="#" class="social-item">
-                <div class="social-icon" style="background: #F89340;">
-                    <svg viewBox="0 0 24 24"><path fill="white" d="M3.9 12a4.1 4.1 0 0 1 0-5.8l2-2a4.1 4.1 0 0 1 5.8 5.8l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a2.1 2.1 0 0 0-2.98-2.98l-2 2a2.1 2.1 0 0 0 0 2.98L8 13.4a1 1 0 0 1-1.4 1.4L3.9 12zM20.1 12a4.1 4.1 0 0 1 0 5.8l-2 2a4.1 4.1 0 0 1-5.8-5.8l1.4-1.4a1 1 0 0 1 1.4 1.4l-1.4 1.4a2.1 2.1 0 0 0 2.98 2.98l2-2a2.1 2.1 0 0 0 0-2.98L16 10.6a1 1 0 0 1 1.4-1.4l2.7 2.8z"/></svg>
-                </div>
-                <div class="social-label">Wishlink</div>
-            </a>
-            <a href="https://www.instagram.com/abhivishrut.apk/" class="social-item">
-                <div class="social-icon instagram">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </div>
-                <div class="social-label">Instagram</div>
-            </a>
+        <!-- About Section -->
+        <div class="about-section">
+            <h2 class="section-title">ABOUT US</h2>
+            <p class="about-text">
+                Codewati Tech Pvt. Ltd. is a growing tech company that offers you a wide range of IT services such as Enterprise Resource Planning (ERP) solutions, Mobile application development, and Website development. With a focus on delivering high-quality and innovative solutions to our clients.
+            </p>
+        </div>
 
-            <a href="https://www.facebook.com/abhi.vishnoi.96/" class="social-item">
-                <div class="social-icon facebook">
-                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-card">
+                <div class="profile-pic" onclick="openModal()">
+                    <img src="profile.webp" alt="Abhivishrut Janghu" id="profileImage">
                 </div>
-                <div class="social-label">Facebook</div>
-            </a>
-            <a href="https://www.youtube.com/@Codewati" class="social-item">
-                <div class="social-icon youtube">
-                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <div class="profile-details">
+                    <div class="profile-name">Abhivishrut Jaghu</div>
+                    <div class="profile-email">codewatipvtltd@gmail.com</div>
+                    <div class="profile-phone">+91 6396 577 959</div>
                 </div>
-                <div class="social-label">YouTube</div>
-            </a>
-            <a href="https://github.com/abhivishrut" class="social-item" target="_blank">
-                <div class="social-icon github">
-                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </div>
-                <div class="social-label">Github</div>
-            </a>
-
-            <a href="https://x.com/chabhibishnoi1" class="social-item">
-                <div class="social-icon x">
-                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </div>
-                <div class="social-label">X</div>
-            </a>
-            
-            <a href="https://codewati.blogspot.com/" class="social-item">
-                <div class="social-icon blogger">
-                    <svg viewBox="0 0 24 24"><path d="M21.976 24H2.026C.9 24 0 23.1 0 21.976V2.026C0 .9.9 0 2.025 0H22.05C23.1 0 24 .9 24 2.025v19.95C24 23.1 23.1 24 21.976 24zM12 3.975H9c-2.775 0-5.025 2.25-5.025 5.025v6c0 2.774 2.25 5.024 5.025 5.024h6c2.774 0 5.024-2.25 5.024-5.024v-3.975c0-.6-.45-1.05-1.05-1.05H18c-.524 0-.976-.45-.976-.976 0-2.776-2.25-5.026-5.024-5.026zm3 10.5h-6c-.525 0-.975-.45-.975-.975s.45-.975.975-.975h6c.525 0 .975.45.975.975s-.45.975-.975.975zm-2.25-3.75h-3.75c-.525 0-.975-.45-.975-.975s.45-.975.975-.975h3.75c.525 0 .975.45.975.975s-.45.975-.975.975z"/></svg>
-                </div>
-                <div class="social-label">Bloggers</div>
-            </a>
-           
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf8yv1frAmotOXvK3HLqsLj2SKQh0tq5IwJm0cfiNpMmbiVoA/viewform" class="social-item">
-                <div class="social-icon forms">
-                    <svg viewBox="0 0 24 24"><path d="M14.727 6.727H14V5.818c0-.906.906-.906 1.636-.906h.73V2.182h-2.037c-2.22 0-3.957 1.738-3.957 3.957v.545H9v2.909h1.372v7.634h2.909v-7.634h1.91l.536-2.866z"/></svg>
-                </div>
-                <div class="social-label">Client Forms</div>
-            </a>
+            </div>
         </div>
 
         <!-- Loot Mafia Channels -->
-        <h2 class="section-title">Loot Mafia Channels</h2>
-        <p class="loot-description">The place where the smart people come before prices go back up.</p>
-        <div class="loot-grid">
-            <a href="https://whatsapp.com/channel/0029Vb7KzwUChq6MkJBE5f2y" class="social-item">
-                <div class="social-icon whatsapp">
-                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                </div>
-                <div class="social-label">Loot Mafia Whatsapp</div>
-            </a>
-            <a href="https://t.me/LootKeMafia" class="social-item">
-                <div class="social-icon telegram">
-                    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                </div>
-                <div class="social-label">Loot Mafia Telegram</div>
-            </a>
-            <a href="https://abhivishrut.github.io/codewati/" class="social-item">
-    <div class="social-icon codewati">
-        <img src="codewatilogo.png" alt="Codewati logo">
-    </div>
-    <div class="social-label">Codewati Tech Pvt. Ltd.</div>
-</a>
+        <div class="loot-section">
+            <h2 class="section-title">Loot Mafia Channels</h2>
+            <p class="loot-description">The place where the smart people come before prices go back up.</p>
+            <div class="loot-channels">
+                <a href="https://whatsapp.com/channel/0029Vb7KzwUChq6MkJBE5f2y" class="channel-item">
+                    <div class="channel-icon whatsapp">
+                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </div>
+                    <div class="channel-label">Loot Mafia WhatsApp</div>
+                </a>
+                <a href="https://t.me/LootKeMafia" class="channel-item">
+                    <div class="channel-icon telegram">
+                        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    </div>
+                    <div class="channel-label">Loot Mafia Telegram</div>
+                </a>
+            </div>
         </div>
 
-         <!-- YouTube Videos Section -->
+        <!-- Social Media Platforms -->
+        <div class="social-section">
+            <h2 class="section-title">Social Media Platforms</h2>
+            <p class="social-description">Follow and Subscribe for daily updates.</p>
+            <div class="social-grid">
+                <a href="#" class="social-item">
+                    <div class="social-icon wishlink">
+                        <svg viewBox="0 0 24 24"><path fill="white" d="M3.9 12a4.1 4.1 0 0 1 0-5.8l2-2a4.1 4.1 0 0 1 5.8 5.8l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a2.1 2.1 0 0 0-2.98-2.98l-2 2a2.1 2.1 0 0 0 0 2.98L8 13.4a1 1 0 0 1-1.4 1.4L3.9 12zM20.1 12a4.1 4.1 0 0 1 0 5.8l-2 2a4.1 4.1 0 0 1-5.8-5.8l1.4-1.4a1 1 0 0 1 1.4 1.4l-1.4 1.4a2.1 2.1 0 0 0 2.98 2.98l2-2a2.1 2.1 0 0 0 0-2.98L16 10.6a1 1 0 0 1 1.4-1.4l2.7 2.8z"/></svg>
+                    </div>
+                    <div class="social-label">WishLink</div>
+                </a>
+                <a href="https://www.instagram.com/abhivishrut.apk/" class="social-item">
+                    <div class="social-icon instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </div>
+                    <div class="social-label">Instagram</div>
+                </a>
+                <a href="https://www.facebook.com/abhi.vishnoi.96/" class="social-item">
+                    <div class="social-icon facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </div>
+                    <div class="social-label">Facebook</div>
+                </a>
+                <a href="https://www.youtube.com/@Codewati" class="social-item">
+                    <div class="social-icon youtube">
+                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </div>
+                    <div class="social-label">YouTube</div>
+                </a>
+                <a href="https://github.com/abhivishrut" class="social-item" target="_blank">
+                    <div class="social-icon github">
+                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </div>
+                    <div class="social-label">Github</div>
+                </a>
+                <a href="https://x.com/chabhibishnoi1" class="social-item">
+                    <div class="social-icon x">
+                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </div>
+                    <div class="social-label">X</div>
+                </a>
+                <a href="https://codewati.blogspot.com/" class="social-item">
+                    <div class="social-icon blogger">
+                        <svg viewBox="0 0 24 24"><path d="M21.976 24H2.026C.9 24 0 23.1 0 21.976V2.026C0 .9.9 0 2.025 0H22.05C23.1 0 24 .9 24 2.025v19.95C24 23.1 23.1 24 21.976 24zM12 3.975H9c-2.775 0-5.025 2.25-5.025 5.025v6c0 2.774 2.25 5.024 5.025 5.024h6c2.774 0 5.024-2.25 5.024-5.024v-3.975c0-.6-.45-1.05-1.05-1.05H18c-.524 0-.976-.45-.976-.976 0-2.776-2.25-5.026-5.024-5.026zm3 10.5h-6c-.525 0-.975-.45-.975-.975s.45-.975.975-.975h6c.525 0 .975.45.975.975s-.45.975-.975.975zm-2.25-3.75h-3.75c-.525 0-.975-.45-.975-.975s.45-.975.975-.975h3.75c.525 0 .975.45.975.975s-.45.975-.975.975z"/></svg>
+                    </div>
+                    <div class="social-label">Bloggers</div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf8yv1frAmotOXvK3HLqsLj2SKQh0tq5IwJm0cfiNpMmbiVoA/viewform" class="social-item">
+                    <div class="social-icon forms">
+                        <svg viewBox="0 0 24 24"><path d="M14.727 6.727H14V5.818c0-.906.906-.906 1.636-.906h.73V2.182h-2.037c-2.22 0-3.957 1.738-3.957 3.957v.545H9v2.909h1.372v7.634h2.909v-7.634h1.91l.536-2.866z"/></svg>
+                    </div>
+                    <div class="social-label">Client Form</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- YouTube Videos Section -->
         <div class="youtube-section">
             <h2 class="section-title">Some of my YouTube Videos</h2>
             <div class="youtube-scroll">
@@ -455,21 +666,45 @@
         </div>
 
         <!-- GitHub Public Repos -->
-        <h2 class="section-title" style="margin-Bottom: 24px;">GitHub Public Repos</h2>
-        <div id="repos-container">
-            <div class="loading">Loading repositories...</div>
+        <div class="github-section">
+            <h2 class="section-title">My GitHub Public Repos</h2>
+            <div id="repos-container">
+                <div class="loading">Loading repositories...</div>
+            </div>
         </div>
     </div>
 
+    <!-- Image Modal -->
     <div id="imageModal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
             <div class="close-btn" onclick="closeModal(event)">×</div>
-            <img src="https://drive.google.com/uc?export=view&id=1h9N7EY6Sgv-ujxJE9-quX4t0ocoqixvb" alt="Profile Picture" class="modal-image" id="modalImage">
+            <img src="profile.webp" alt="Profile Picture" class="modal-image" id="modalImage">
         </div>
     </div>
-    
-    <script>
 
+    <script>
+        // Image Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function goToSlide(index) {
+            currentSlide = index;
+            const slider = document.getElementById('slider');
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }
+
+        // Auto-slide every 4 seconds
+        setInterval(nextSlide, 4000);
 
         // Image Modal Functions
         function openModal() {
@@ -477,24 +712,21 @@
             const modalImg = document.getElementById('modalImage');
             const profileImg = document.getElementById('profileImage');
             
-            // Set the source before showing modal
             modalImg.src = profileImg.src;
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(event) {
             const modal = document.getElementById('imageModal');
             
-            // Close if clicking on overlay or close button
             if (event.target === modal || event.target.classList.contains('close-btn')) {
                 modal.classList.remove('active');
-                document.body.style.overflow = 'auto'; // Re-enable scrolling
+                document.body.style.overflow = 'auto';
                 event.stopPropagation();
             }
         }
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 const modal = document.getElementById('imageModal');
@@ -502,14 +734,13 @@
                 document.body.style.overflow = 'auto';
             }
         });
-        
+
         // Fetch GitHub repositories
         async function fetchGitHubRepos() {
             const username = 'abhivishrut';
             const container = document.getElementById('repos-container');
             
             try {
-                // Using CORS proxy to avoid CORS issues
                 const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)}`);
                 
                 if (!response.ok) {
@@ -574,8 +805,7 @@
                 `;
             }
         }
-        
-        // Load repos when page loads
+
         fetchGitHubRepos();
     </script>
 </body>
