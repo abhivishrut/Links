@@ -272,63 +272,111 @@
             to { transform: scale(1); }
         }
 
-        /* Loot Mafia Section */
-        .loot-section {
+        /* Android Apps Section */
+        .apps-section {
             padding: 10px 20px;
             background: white;
         }
 
-        .loot-description {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .loot-channels {
+        .apps-scroll {
             display: flex;
             gap: 15px;
-            justify-content: flex-start;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-behavior: smooth;
         }
 
-        .channel-item {
+        .apps-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .apps-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .apps-scroll::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .app-card {
+            flex: 0 0 320px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 8px;
             text-decoration: none;
-            flex: 0 0 auto;
+            background: #f1f3f4;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .channel-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .app-banner {
+            width: 100%;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .app-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-bottom {
             display: flex;
             align-items: center;
+            gap: 12px;
+        }
+
+        .app-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-info {
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            transition: transform 0.2s;
+            overflow: hidden;
         }
 
-        .channel-icon:hover {
-            transform: scale(1.05);
+        .app-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .channel-icon.whatsapp { background: #25D366; }
-        .channel-icon.telegram { background: #0088cc; }
-        .channel-icon.codewati { background: #eafaff; }
-
-        .channel-icon svg {
-            width: 36px;
-            height: 36px;
-            fill: white;
-        }
-
-        .channel-label {
-            font-size: 11px;
-            color: #333;
-            text-align: center;
-            max-width: 80px;
-            font-weight: 500;
+        .app-developer {
+            font-size: 13px;
+            color: #5f6368;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Social Media Section */
@@ -436,71 +484,29 @@
             border: none;
         }
 
-        /* GitHub Section */
-        .github-section {
-            padding: 10px 20px;
-            background: white;
-        }
 
-        .repo-card {
+        /* Footer Section */
+        .footer {
+            padding: 20px;
+            text-align: center;
             background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 10px;
         }
 
-        .repo-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .repo-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: #0366d6;
-            margin-bottom: 6px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .repo-name:hover {
-            text-decoration: underline;
-        }
-
-        .repo-description {
+        .footer-text {
             font-size: 12px;
             color: #666;
-            margin-bottom: 10px;
             line-height: 1.5;
         }
 
-        .repo-stats {
-            display: flex;
-            gap: 15px;
-            font-size: 11px;
-            color: #666;
+        .footer-link {
+            color: #1a73e8;
+            text-decoration: none;
         }
 
-        .repo-stat {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .language-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-            font-size: 13px;
+        .footer-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -555,7 +561,7 @@
         <div class="profile-section">
             <div class="profile-card">
                 <div class="profile-pic" onclick="openModal()">
-                    <img src="profile.webp" alt="Abhivishrut Janghu" id="profileImage">
+                    <img src="https://abhivishrut.github.io/Api/img/profile.jpeg" alt="Abhivishrut Janghu" id="profileImage">
                 </div>
                 <div class="profile-details">
                     <div class="profile-name">Abhivishrut Janghu</div>
@@ -565,29 +571,27 @@
             </div>
         </div>
 
-        <!-- Loot Mafia Channels -->
-        <div class="loot-section">
-            <h2 class="section-title">Loot Mafia Channels</h2>
-            <p class="loot-description">The place where the smart people come before prices go back up.</p>
-            <div class="loot-channels">
-                <a href="https://whatsapp.com/channel/0029Vb7KzwUChq6MkJBE5f2y" class="channel-item">
-                    <div class="channel-icon whatsapp">
-                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <!-- Android Apps Section -->
+        <div class="apps-section">
+            <h2 class="section-title">Check out Our android apps</h2>
+            <div class="apps-scroll">
+                <a href="https://play.google.com/store/apps/details?id=com.codewati.harinaam&hl=en" target="_blank" class="app-card">
+                    <div class="app-banner">
+                        <!-- Replace with your app's actual feature graphic -->
+                        <img src="harinaam-banner.webp" alt="Hari Naam Banner">
                     </div>
-                    <div class="channel-label">Loot Mafia WhatsApp</div>
-                </a>
-                <a href="https://t.me/LootKeMafia" class="channel-item">
-                    <div class="channel-icon telegram">
-                        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    <div class="app-bottom">
+                        <div class="app-icon">
+                            <!-- Replace with your app's actual icon -->
+                            <img src="harinaam-icon.png" alt="Hari Naam App Icon">
+                        </div>
+                        <div class="app-info">
+                            <div class="app-name">Harinaam - Japa & Bhakti</div>
+                            <div class="app-developer">Codewati Tech Private Limited</div>
+                        </div>
                     </div>
-                    <div class="channel-label">Loot Mafia Telegram</div>
                 </a>
-                <a href="https://abhivishrut.github.io/codewati/" class="channel-item">
-                    <div class="channel-icon codewati">
-                         <img src="codewatilogo.png" alt="codewati logo" id="codewatiimage" style="width:42px; height:42px;">
-                    </div>
-                    <div class="channel-label">Codewati tech pvt. ltd.</div>
-                </a>
+                <!-- You can add more app cards here following the same structure -->
             </div>
         </div>
 
@@ -669,13 +673,13 @@
             </div>
         </div>
 
-        <!-- GitHub Public Repos -->
-        <div class="github-section">
-            <h2 class="section-title">My GitHub Public Repos</h2>
-            <div id="repos-container">
-                <div class="loading">Loading repositories...</div>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                &copy; 2024 Codewati Tech Pvt. Ltd. All rights reserved.<br>
+                Designed with ❤️ by <a href="#" class="footer-link">Codewati</a>
+            </p>
+        </footer>
     </div>
 
     <!-- Image Modal -->
@@ -739,78 +743,7 @@
             }
         });
 
-        // Fetch GitHub repositories
-        async function fetchGitHubRepos() {
-            const username = 'abhivishrut';
-            const container = document.getElementById('repos-container');
-            
-            try {
-                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)}`);
-                
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                
-                const repos = await response.json();
-                
-                if (!repos || repos.length === 0) {
-                    container.innerHTML = '<p class="loading">No public repositories found.</p>';
-                    return;
-                }
-                
-                container.innerHTML = '';
-                
-                repos.forEach(repo => {
-                    const repoCard = document.createElement('div');
-                    repoCard.className = 'repo-card';
-                    
-                    const languageColors = {
-                        'JavaScript': '#f1e05a',
-                        'Python': '#3572A5',
-                        'Java': '#b07219',
-                        'HTML': '#e34c26',
-                        'CSS': '#563d7c',
-                        'TypeScript': '#2b7489',
-                        'PHP': '#4F5D95',
-                        'C++': '#f34b7d',
-                        'C': '#555555',
-                        'Ruby': '#701516',
-                        'Go': '#00ADD8',
-                        'Shell': '#89e051',
-                        'Dart': '#00B4AB'
-                    };
-                    
-                    repoCard.innerHTML = `
-                        <a href="${repo.html_url}" target="_blank" class="repo-name">${repo.name}</a>
-                        <p class="repo-description">${repo.description || 'No description available'}</p>
-                        <div class="repo-stats">
-                            ${repo.language ? `
-                                <span class="repo-stat">
-                                    <span class="language-dot" style="background-color: ${languageColors[repo.language] || '#ccc'}"></span>
-                                    ${repo.language}
-                                </span>
-                            ` : ''}
-                            <span class="repo-stat">⭐ ${repo.stargazers_count}</span>
-                            <span class="repo-stat">🔱 ${repo.forks_count}</span>
-                        </div>
-                    `;
-                    
-                    container.appendChild(repoCard);
-                });
-            } catch (error) {
-                console.error('Error fetching repos:', error);
-                container.innerHTML = `
-                    <p class="loading" style="color: #666; line-height: 1.6;">
-                        Unable to load repositories automatically.<br>
-                        <a href="https://github.com/abhivishrut?tab=repositories" target="_blank" style="color: #0366d6; text-decoration: none;">
-                            View repositories on GitHub →
-                        </a>
-                    </p>
-                `;
-            }
-        }
 
-        fetchGitHubRepos();
     </script>
 </body>
 </html>
