@@ -741,34 +741,6 @@
                 opacity: 1;
             }
         }
-    
-        .upi-apps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .upi-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            text-decoration: none;
-            color: var(--text-color);
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s;
-            border-radius: 16px;
-        }
-
-        .upi-btn:hover, .upi-btn:active {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
 
         /* --- Tea Cup Button & Payment Sheet UI Polish --- */
         .profile-card {
@@ -837,20 +809,6 @@
             font-weight: 600;
             color: var(--text-color);
             letter-spacing: 0.5px;
-        }
-        
-        /* Typography polish for payment grid */
-        .pay-directly-text {
-            margin: 10px 0 15px; 
-            font-size: 13px; 
-            font-weight: 700;
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-            background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            width: 100%;
         }
 
 </style>
@@ -1129,27 +1087,6 @@
                 <div class="qr-container">
                     <img id="coffeeQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dabhivishrut%40ptyes%26pn%3DAbhivishrut%2520Janghu%26cu%3DINR" alt="UPI QR Code">
                     <span class="qr-label">Scan to Pay via UPI</span>
-                </div>
-                
-                <h3 class="pay-directly-text">Or Pay Directly With</h3>
-                
-                <div class="upi-apps-grid">
-                    <a href="gpay://upi/pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="GPay" style="height: 24px;">
-                        <span>GPay</span>
-                    </a>
-                    <a href="phonepe://pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
-                        <img src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png" alt="PhonePe" style="height: 32px; margin-left: -5px; object-fit: contain;">
-                        <span>PhonePe</span>
-                    </a>
-                    <a href="paytmmp://pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" alt="Paytm" style="height: 20px;">
-                        <span>Paytm</span>
-                    </a>
-                    <a href="upi://pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
-                        <svg viewBox="0 0 24 24" style="height: 24px; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                        <span>Any UPI App</span>
-                    </a>
                 </div>
             </div>
         </div>
