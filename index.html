@@ -312,7 +312,7 @@
         }
 
         .profile-name {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 4px;
         }
@@ -325,7 +325,7 @@
         }
 
         .profile-phone {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
         }
 
@@ -741,7 +741,119 @@
                 opacity: 1;
             }
         }
-    </style>
+    
+        .upi-apps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .upi-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            border-radius: 16px;
+        }
+
+        .upi-btn:hover, .upi-btn:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* --- Tea Cup Button & Payment Sheet UI Polish --- */
+        .profile-card {
+            position: relative; /* Ensure FAB positions correctly */
+        }
+
+        .tea-cup-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(255, 154, 158, 0.6), inset 0 2px 4px rgba(255,255,255,0.4);
+            cursor: pointer;
+            z-index: 10;
+            animation: pulse-tea 2s infinite;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .tea-cup-btn:hover, .tea-cup-btn:active {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-tea {
+            0% { box-shadow: 0 0 0 0 rgba(255, 154, 158, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 154, 158, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 154, 158, 0); }
+        }
+
+        /* Improved QR Code Container */
+        .qr-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 24px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 2px 10px rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-container:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 154, 158, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 154, 158, 0.2);
+        }
+
+        .qr-container img {
+            border-radius: 12px;
+            background: white; /* Ensure QR is scannable */
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .qr-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+        
+        /* Typography polish for payment grid */
+        .pay-directly-text {
+            margin: 10px 0 15px; 
+            font-size: 13px; 
+            font-weight: 700;
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            width: 100%;
+        }
+
+</style>
 </head>
 
 <body class="dark-mode">
@@ -798,6 +910,7 @@
                     <div class="profile-name">Abhivishrut Janghu</div>
                     <div class="profile-email">codewatipvtltd@gmail.com</div>
                     <div class="profile-phone">+91 6396 577 959</div>
+                    <a href="#" class="tea-cup-btn" id="coffeeBtnElement" title="Buy me a tea">🍵</a>
                 </div>
             </div>
         </div>
@@ -989,6 +1102,55 @@
                     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
                         alt="Get it on Google Play">
                 </a>
+            </div>
+        </div>
+    </div>
+
+<!-- Coffee Bottom Sheet -->
+    <div id="coffeeBottomSheet" class="bottom-sheet-overlay">
+        <div class="bottom-sheet-panel" id="coffeePanel" onclick="event.stopPropagation()">
+            <div class="sheet-handle" id="coffeeHandle"></div>
+
+            <div class="sheet-header coffee-animate">
+                <div class="sheet-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 0 15px rgba(255, 154, 158, 0.4);">
+                    🍵
+                </div>
+                <div>
+                    <div class="sheet-title">Buy Me A Coffee</div>
+                    <div class="sheet-developer">Support Abhivishrut Janghu</div>
+                </div>
+            </div>
+
+            <div class="sheet-description coffee-animate">
+                If you find my work helpful, consider buying me a coffee! You can scan the QR code below or use any installed UPI app to send your support. Thank you!
+            </div>
+            
+            <div class="sheet-action-area coffee-animate">
+                <div class="qr-container">
+                    <img id="coffeeQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dabhivishrut%40ptyes%26pn%3DAbhivishrut%2520Janghu%26cu%3DINR" alt="UPI QR Code">
+                    <span class="qr-label">Scan to Pay via UPI</span>
+                </div>
+                
+                <h3 class="pay-directly-text">Or Pay Directly With</h3>
+                
+                <div class="upi-apps-grid">
+                    <a href="gpay://upi/pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="GPay" style="height: 24px;">
+                        <span>GPay</span>
+                    </a>
+                    <a href="phonepe://pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
+                        <img src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png" alt="PhonePe" style="height: 32px; margin-left: -5px; object-fit: contain;">
+                        <span>PhonePe</span>
+                    </a>
+                    <a href="paytmmp://pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" alt="Paytm" style="height: 20px;">
+                        <span>Paytm</span>
+                    </a>
+                    <a href="upi://pay?pa=abhivishrut@ptyes&pn=Abhivishrut%20Janghu&cu=INR" class="upi-btn glass-pill">
+                        <svg viewBox="0 0 24 24" style="height: 24px; fill: currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                        <span>Any UPI App</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -1221,6 +1383,122 @@
             }
         });
 
+        
+        // --- Coffee Bottom Sheet Logic ---
+        const coffeeSheetOverlay = document.getElementById('coffeeBottomSheet');
+        const coffeePanel = document.getElementById('coffeePanel');
+        const coffeeHandle = document.getElementById('coffeeHandle');
+        const coffeeBtn = document.getElementById('coffeeBtnElement');
+        
+        if(coffeeBtn) {
+            coffeeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent triggering the profile card dark mode toggle
+                
+                // Reset expanded state
+                coffeePanel.classList.remove('expanded');
+                coffeePanel.scrollTop = 0;
+                
+                // Show bottom sheet
+                coffeeSheetOverlay.classList.add('active');
+                
+                // Trigger GSAP Pop Up Animation
+                gsap.fromTo('.coffee-animate', 
+                    { y: 40, opacity: 0 }, 
+                    { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.2)', delay: 0.15 }
+                );
+            });
+        }
+        
+        if (coffeeSheetOverlay) {
+            coffeeSheetOverlay.addEventListener('click', () => {
+                coffeeSheetOverlay.classList.remove('active');
+            });
+        }
+        
+        // Expand on scroll (wheel)
+        coffeePanel.addEventListener('wheel', (e) => {
+            if (!coffeePanel.classList.contains('expanded')) {
+                if (e.deltaY > 0) { // scrolling down
+                    e.preventDefault();
+                    coffeePanel.classList.add('expanded');
+                }
+            } else {
+                if (coffeePanel.scrollTop === 0 && e.deltaY < 0) {
+                    e.preventDefault();
+                    coffeePanel.classList.remove('expanded');
+                }
+            }
+        });
+        
+        // Expand on touch swipe
+        let cStartY = 0;
+        let cCurrentY = 0;
+        
+        coffeePanel.addEventListener('touchstart', (e) => {
+            cStartY = e.touches ? e.touches[0].clientY : e.clientY;
+        }, { passive: true });
+        
+        coffeePanel.addEventListener('touchmove', (e) => {
+            cCurrentY = e.touches ? e.touches[0].clientY : e.clientY;
+            let deltaY = cCurrentY - cStartY;
+            
+            if (!coffeePanel.classList.contains('expanded')) {
+                if (deltaY < -20) { // swipe up
+                    coffeePanel.classList.add('expanded');
+                } else if (deltaY > 50) { // swipe down to close
+                    coffeeSheetOverlay.classList.remove('active');
+                }
+            } else {
+                if (coffeePanel.scrollTop <= 0 && deltaY > 30) {
+                    coffeePanel.classList.remove('expanded');
+                }
+            }
+        }, { passive: true });
+        
+        // Mouse drag on handle
+        let cIsDragging = false;
+        
+        if(coffeeHandle) {
+            coffeeHandle.addEventListener('mousedown', (e) => {
+                cIsDragging = true;
+                cStartY = e.clientY;
+            });
+            
+            window.addEventListener('mousemove', (e) => {
+                if (!cIsDragging) return;
+                cCurrentY = e.clientY;
+                let deltaY = cCurrentY - cStartY;
+                
+                if (!coffeePanel.classList.contains('expanded')) {
+                    if (deltaY < -20) {
+                        coffeePanel.classList.add('expanded');
+                        cIsDragging = false;
+                    } else if (deltaY > 30) {
+                        coffeeSheetOverlay.classList.remove('active');
+                        cIsDragging = false;
+                    }
+                } else {
+                    if (deltaY > 30) {
+                        coffeePanel.classList.remove('expanded');
+                        cIsDragging = false;
+                    }
+                }
+            });
+            
+            window.addEventListener('mouseup', () => {
+                cIsDragging = false;
+            });
+            
+            coffeeHandle.addEventListener('click', () => {
+                if (coffeePanel.classList.contains('expanded')) {
+                    coffeePanel.classList.remove('expanded');
+                } else {
+                    coffeePanel.classList.add('expanded');
+                }
+            });
+        }
+
         // --- Restore Landing Page Pop Up Animations ---
         gsap.registerPlugin(ScrollTrigger);
         gsap.utils.toArray('.gsap-reveal').forEach((elem) => {
@@ -1245,6 +1523,9 @@
             });
         }
     </script>
+
+
+    
 
 </body>
 
