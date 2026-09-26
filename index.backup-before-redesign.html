@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codewati Tech Private Limited | Command Center</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCHJ201FXH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-WCHJ201FXH');
+    </script>
+    <style>
+        :root {
+            /* Light Mode Variables */
+            --bg-color: #eef2f5;
+            --text-color: #2c3e50;
+            --text-muted: #7f8c8d;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --shadow-light: rgba(255, 255, 255, 0.9);
+            --shadow-dark: rgba(163, 177, 198, 0.6);
+            --inner-highlight: rgba(255, 255, 255, 1);
+
+            /* Glow Colors */
+            --glow-blue: #3498db;
+            --glow-red: #e74c3c;
+            --glow-orange: #f39c12;
+            --glow-purple: #9b59b6;
+            --glow-green: #2ecc71;
+
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Dark Mode Override Class */
+        body.dark-mode {
+            --bg-color: #1a1c23;
+            --text-color: #ffffff;
+            --text-muted: #95a5a6;
+            --glass-bg: rgba(26, 28, 35, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-light: rgba(255, 255, 255, 0.05);
+            --shadow-dark: rgba(0, 0, 0, 0.8);
+            --inner-highlight: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* Remove the old Three.js canvas */
+        #bg-canvas {
+            display: none !important;
+        }
+
+                .container {
+            max-width: 450px;
+            margin: 0 auto;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 20px 40px; /* Added responsive horizontal padding */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive max-width for smaller devices if needed */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+        }
+
+        /* --- Global Glass Pill/Card Style --- */
+        .glass-pill {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 24px;
+            /* Outer Neumorphic Shadows */
+            box-shadow:
+                8px 8px 16px var(--shadow-dark),
+                -8px -8px 16px var(--shadow-light),
+                /* Inner Glass Highlights */
+                inset 2px 2px 4px var(--inner-highlight),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            /* Springy bounce-back when released */
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+            cursor: pointer;
+        }
+
+        /* The glowing inner fluid pseudo-element */
+        .glass-pill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* Start fully clipped out from the right (0% width visible) */
+            clip-path: inset(0 100% 0 0);
+            /* Smooth liquid wipe transition */
+            transition: clip-path 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        /* Active/Click State */
+        .glass-pill:active,
+        .glass-pill.active-glow {
+            transform: scale(0.92);
+            box-shadow:
+                4px 4px 8px var(--shadow-dark),
+                -4px -4px 8px var(--shadow-light),
+                inset 4px 4px 8px rgba(0, 0, 0, 0.1);
+            /* Fast, snappy press down */
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease;
+        }
+
+        .glass-pill:active::before,
+        .glass-pill.active-glow::before {
+            /* Wipe to full width instantly */
+            clip-path: inset(0 0 0 0);
+        }
+
+        .glass-pill:active *,
+        .glass-pill.active-glow * {
+            color: white !important;
+            fill: white !important;
+        }
+
+        /* Define specific glow colors via data attributes */
+        .glass-pill[data-glow="blue"]::before {
+            background: linear-gradient(135deg, var(--glow-blue), #2980b9);
+        }
+
+        .glass-pill[data-glow="red"]::before {
+            background: linear-gradient(135deg, var(--glow-red), #c0392b);
+        }
+
+        .glass-pill[data-glow="orange"]::before {
+            background: linear-gradient(135deg, var(--glow-orange), #d35400);
+        }
+
+        .glass-pill[data-glow="purple"]::before {
+            background: linear-gradient(135deg, var(--glow-purple), #8e44ad);
+        }
+
+        .glass-pill[data-glow="green"]::before {
+            background: linear-gradient(135deg, var(--glow-green), #27ae60);
+        }
+
+
+        /* --- Specific Sections --- */
+
+        .header {
+            padding: 30px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 2px;
+            flex-shrink: 0;
+        }
+
+        .company-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .company-name {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .company-tagline {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Slider */
+        .slider-container {
+            width: 100%;
+            margin: 15px auto;
+            height: 180px;
+            border-radius: 24px;
+            padding: 0;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--text-color);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+
+        /* Titles */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0;
+            margin: 25px 0 15px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* About & Profile */
+        .about-section {
+            margin: 0 0 25px;
+            padding: 25px 20px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: 500;
+            text-align: left;
+            color: var(--text-color);
+        }
+
+        .profile-card {
+            margin: 15px 0 25px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-email {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        .profile-phone {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Scrolls */
+        .apps-scroll,
+        .youtube-scroll {
+            display: flex;
+            gap: 20px;
+            padding: 5px 0 25px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbars for ultra clean look */
+
+        /* App Cards */
+        .app-card {
+            flex: 0 0 280px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .app-banner {
+            width: 100%;
+            height: 120px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .app-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-bottom {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .app-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .app-developer {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Social Grid */
+        .social-description {
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .social-grid {display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            padding: 0;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--text-color);
+            z-index: 2;
+        }
+
+        .social-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* YouTube */
+        .youtube-video {
+            flex: 0 0 280px;
+            height: 158px;
+            padding: 5px;
+        }
+
+        .youtube-video iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-link {
+            color: var(--text-color);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+
+        /* --- Bottom Sheet --- */
+        .bottom-sheet-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+
+        .bottom-sheet-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bottom-sheet-panel {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            width: 100%;
+            max-width: 450px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-top: 1.5px solid var(--glass-border);
+            border-left: 1.5px solid var(--glass-border);
+            border-right: 1.5px solid var(--glass-border);
+            border-radius: 32px 32px 0 0;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3), inset 0 2px 4px var(--inner-highlight);
+            z-index: 1001;
+            padding: 20px 25px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 55vh;
+            overflow-y: hidden;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .bottom-sheet-panel.expanded {
+            height: 90vh;
+            overflow-y: auto;
+        }
+
+        .bottom-sheet-panel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bottom-sheet-overlay.active .bottom-sheet-panel {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .sheet-handle {
+            width: 40px;
+            height: 5px;
+            background: var(--glass-border);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            cursor: grab;
+        }
+
+        .sheet-handle:active {
+            cursor: grabbing;
+        }
+
+        .sheet-header {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sheet-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .sheet-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+
+
+
+
+        .sheet-description {
+            flex-shrink: 0;
+            width: 100%;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .sheet-screenshots {
+            flex-shrink: 0;
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            border-radius: 12px;
+            display: flex;
+            gap: 12px;
+            scroll-behavior: smooth;
+        }
+
+        .sheet-screenshots::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sheet-screenshots img {
+            height: 120px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .sheet-action-area {
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .sheet-action-area {
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qr-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            background: white;
+            padding: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+        }
+
+        .sheet-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 6px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sheet-developer {
+            font-size: 15px;
+            color: var(--glow-blue);
+            font-weight: 700;
+        }
+
+        .play-store-btn {
+            display: block;
+            width: 220px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s;
+            border-radius: 12px;
+            /* Using drop shadow for the official badge with transparent background */
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+        }
+
+        .play-store-btn img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        .play-store-btn:active {
+            transform: scale(0.92);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(0.9);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 30px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: black;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* --- Tea Cup Button & Payment Sheet UI Polish --- */
+        .profile-card {
+            position: relative; /* Ensure FAB positions correctly */
+        }
+
+        .tea-cup-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(255, 154, 158, 0.6), inset 0 2px 4px rgba(255,255,255,0.4);
+            cursor: pointer;
+            z-index: 10;
+            animation: pulse-tea 2s infinite;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .tea-cup-btn:hover, .tea-cup-btn:active {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-tea {
+            0% { box-shadow: 0 0 0 0 rgba(255, 154, 158, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 154, 158, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 154, 158, 0); }
+        }
+
+        /* Improved QR Code Container */
+        .qr-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 24px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 2px 10px rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-container:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 154, 158, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 154, 158, 0.2);
+        }
+
+        .qr-container img {
+            border-radius: 12px;
+            background: white; /* Ensure QR is scannable */
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .qr-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+</style>
+</head>
+
+<body class="dark-mode">
+    <canvas id="bg-canvas"></canvas>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="company-logo glass-pill" data-glow="blue">
+                <img src="codewatilogo.png" alt="Codewati Logo">
+            </div>
+            <div class="company-info">
+                <div class="company-name">Codewati Tech Pvt. Ltd.</div>
+                <div class="company-tagline">We Build What Businesses Need.</div>
+            </div>
+        </div>
+
+        <!-- Image Slider -->
+        <div class="slider-container glass-pill" data-glow="blue">
+            <div class="slider" id="slider">
+
+                <div class="slide">
+                    <img src="banner1.png" alt="Codewati ERP Solutions">
+                </div>
+
+                <div class="slide">
+                    <img src="banner2.png" alt="Mobile App Development">
+                </div>
+
+                <div class="slide">
+                    <img src="banner3.png" alt="Website Development">
+                </div>
+
+                <div class="slide">
+                    <img src="banner4.png" alt="Website Development">
+                </div>
+
+            </div>
+
+            <div class="slider-dots">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-card glass-pill gsap-reveal" data-glow="orange">
+                <div class="profile-pic" onclick="openModal()">
+                    <img src="https://abhivishrut.github.io/Api/img/profile.jpeg" alt="Abhivishrut Janghu"
+                        id="profileImage">
+                </div>
+                <div class="profile-details">
+                    <div class="profile-name">Abhivishrut Janghu</div>
+                    <div class="profile-email">codewatipvtltd@gmail.com</div>
+                    <div class="profile-phone">+91 6396 577 959</div>
+                    <a href="#" class="tea-cup-btn" id="coffeeBtnElement" title="Buy me a tea">🍵</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Android Apps Section -->
+        <div class="apps-section">
+            <h2 class="section-title">Explore Our Android Applications</h2>
+            <div class="apps-scroll">
+                <a href="https://play.google.com/store/apps/details?id=com.codewati.harinaam&hl=en" target="_blank"
+                    class="app-card glass-pill gsap-reveal" data-glow="blue"
+                    data-description="Harinaam - Japa & Bhakti is a comprehensive app designed to aid your spiritual journey. It features intuitive digital counters for your daily chanting, a vast library of Bhakti literature, and serene audio tracks for meditation. Enhance your focus, maintain a daily streak, and dive deeper into Krishna consciousness.">
+                    <div class="app-banner">
+                        <!-- Replace with your app's actual feature graphic -->
+                        <img src="harinaam-banner.webp" alt="Hari Naam Banner">
+                    </div>
+                    <div class="app-bottom">
+                        <div class="app-icon">
+                            <!-- Replace with your app's actual icon -->
+                            <img src="harinaam-icon.png" alt="Hari Naam App Icon">
+                        </div>
+                        <div class="app-info">
+                            <div class="app-name">Harinaam - Japa & Bhakti</div>
+                            <div class="app-developer">Codewati Tech Private Limited</div>
+                        </div>
+                    </div>
+                </a>
+                <!-- You can add more app cards here following the same structure -->
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <h2 class="section-title" style="margin-top: 5px;">ABOUT US</h2>
+        <div class="about-section glass-pill gsap-reveal" data-glow="purple">
+            <p class="about-text">
+                Codewati Tech Private Limited is an independent technology service provider offering customized IT
+                solutions to businesses, startups, and individuals. We focus on developing reliable, user-friendly, and
+                scalable digital solutions based on the specific requirements of our clients.
+            </p>
+        </div>
+
+        <!-- Social Media Platforms -->
+        <div class="social-section">
+            <h2 class="section-title">Connect With Us</h2>
+            <p class="social-description">Join our community for the latest updates, tech insights, and more.</p>
+            <div class="social-grid">
+                <a href="https://www.instagram.com/abhivishrut.apk/" class="social-item">
+                    <div class="social-icon glass-pill gsap-reveal" data-glow="purple" -glare="0.4" data-glow="purple">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                    <div class="social-label">Instagram</div>
+                </a>
+                <a href="https://www.facebook.com/abhi.vishnoi.96/" class="social-item">
+                    <div class="social-icon glass-pill gsap-reveal" data-glow="purple" -glare="0.4" data-glow="blue">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </div>
+                    <div class="social-label">Facebook</div>
+                </a>
+                <a href="https://www.youtube.com/@Codewati" class="social-item">
+                    <div class="social-icon glass-pill gsap-reveal" data-glow="purple" -glare="0.4" data-glow="red">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </div>
+                    <div class="social-label">YouTube</div>
+                </a>
+
+                <a href="https://x.com/chabhibishnoi1" class="social-item">
+                    <div class="social-icon glass-pill gsap-reveal" data-glow="purple" -glare="0.4" data-glow="blue">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </div>
+                    <div class="social-label">X</div>
+                </a>
+
+                <a href="https://forms.gle/SS3wE6xZhi6j2cyg9" class="social-item" target="_blank">
+                    <div class="social-icon glass-pill gsap-reveal" data-glow="green">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20 7h-4V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z" />
+                        </svg>
+                    </div>
+                    <div class="social-label">Hire Me</div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- YouTube Videos Section -->
+        <div class="youtube-section">
+            <h2 class="section-title">Explore Our Video Content</h2>
+            <div class="youtube-scroll">
+                <div class="youtube-video glass-pill gsap-reveal" data-glow="red">
+                    <iframe src="https://www.youtube.com/embed/9GaTU5GHfWE?si=KHBB-liiLDaC6ogM"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="youtube-video glass-pill gsap-reveal" data-glow="red">
+                    <iframe src="https://www.youtube.com/embed/O9IAPPHb5LM?si=fklkZCgLyIC1ww0O"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="youtube-video glass-pill gsap-reveal" data-glow="red">
+                    <iframe src="https://www.youtube.com/embed/XvfyPrCaF80?si=H2j9H8mxtOm5sXCp"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="youtube-video glass-pill gsap-reveal" data-glow="red">
+                    <iframe src="https://www.youtube.com/embed/c-I4MCPQ0pk?si=ATG-FGqiOrXb_eyd"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="youtube-video glass-pill gsap-reveal" data-glow="red">
+                    <iframe src="https://www.youtube.com/embed/D6ou-zNJnBo?si=Xljfyr0hzxYe9qOM"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                &copy; 2024 Codewati Tech Pvt. Ltd. All rights reserved.<br>
+                Designed with ❤️ by <a href="#" class="footer-link">Codewati</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Bottom Sheet -->
+    <div id="appBottomSheet" class="bottom-sheet-overlay">
+        <div class="bottom-sheet-panel" onclick="event.stopPropagation()">
+            <div class="sheet-handle bs-animate"></div>
+            <div class="sheet-header bs-animate">
+                <div class="sheet-icon">
+                    <img id="bsIcon" src="" alt="App Icon">
+                </div>
+                <div>
+                    <div class="sheet-title" id="bsTitle">App Name</div>
+                    <div class="sheet-developer" id="bsDeveloper">Developer Name</div>
+                </div>
+            </div>
+            <div class="sheet-description bs-animate" id="bsDescription">
+                App description goes here...
+            </div>
+            <div class="sheet-screenshots bs-animate" id="bsScreenshots">
+                <img src="https://play-lh.googleusercontent.com/cxK9vDg24JXKPynLbDv96tvrDviF5zW-ZZJiwbGt-1e52SZ0nrZEdf0BBPjKCsj-SKhrTNVgmuzZXUQE1f5USw=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/CSuiOL2OPscEqjyOaQ_mCqZ7Kdto06OFdvzIOVzCn1RC4orL4XqN5A-uQM6MAE_wikX-RzGe-bCLJooaSTL9Q0E=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/uNwochGFzo3CN68iDD4l8ISZFEOP1-lfsMD9cvgGqjA9zwO0WodOPJwzUnveJVvfyKgsy1ZV2-4Dgl9XBgg1EY8=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/pdwrbRF9aJt4UDX2mSY5VxAhthmRcCk2QLxllkHHDLePcZOPok73wtmS1GYNp6x9EoTgaJgoZaX0Ba22IPtw-g=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/e09UkFsmy6ROLI0BOoBMv6OWBz11_2IEjw2rMqXJs36AM6mL0MF0SgDjyHfHgremYa0Ld4f1_oklNbH0v49zQjs=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/VwXYHc1JpnzySQs1WLYQfdRvVl66zXumG4iAnb8RxtkSkn_3FW6hkanK0zkUbEcTPTWdo3bZ0qbpugKnCfZJ=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/iLPCiqXQHpmP_r4TK5JhHmxAc_w5MN4g_d5nHzMuoLP4x-b0EivfEmpEnTFRW9eSh-4qcPzjEpP_xbqOcJIwnw=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/LYkb8v_3HMxnhfNGx7SuIZ39-HDb3hN3jSnD2yLKBEJphV9-a_vHqpXuECMg93QQHvDagl6Pux5pYO9z48vbWg=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/JRr8Nux_MKZaVDFIthX1ZMoViidvKT_7A2dvepIuihCgFTvvCn4fzkChyGvrILm9v6bNHzDluSpGGD2jVFdAQA=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/CZlReQtiabOdGHCeXRSC06SxLCvDtWjHEfT2Vx_EbuJCEHVCBawFe7f0KEgNNOx6T4Vn3PHAgq8d5GkdjCXc0TI=w600"
+                    alt="App Screenshot">
+                <img src="https://play-lh.googleusercontent.com/bUztxKN6Pw7s6XXhVrVRUFCFl81Q9G18OlNxjqj8PMv9hn9W-iYODwPO22UxxNaQWtDUP01o73rRXrhqZm4e3mc=w600"
+                    alt="App Screenshot">
+            </div>
+            <div class="sheet-action-area bs-animate">
+                <div class="qr-container">
+                    <img id="bsQrCode" src="" alt="App QR Code">
+                    <span class="qr-label">Scan to Download or Click Below!</span>
+                </div>
+                <a href="#" id="bsDownloadBtn" class="play-store-btn" target="_blank">
+                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                        alt="Get it on Google Play">
+                </a>
+            </div>
+        </div>
+    </div>
+
+<!-- Coffee Bottom Sheet -->
+    <div id="coffeeBottomSheet" class="bottom-sheet-overlay">
+        <div class="bottom-sheet-panel" id="coffeePanel" onclick="event.stopPropagation()">
+            <div class="sheet-handle" id="coffeeHandle"></div>
+
+            <div class="sheet-header coffee-animate">
+                <div class="sheet-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 0 15px rgba(255, 154, 158, 0.4);">
+                    🍵
+                </div>
+                <div>
+                    <div class="sheet-title">Buy Me A Coffee</div>
+                    <div class="sheet-developer">Support Abhivishrut Janghu</div>
+                </div>
+            </div>
+
+            <div class="sheet-description coffee-animate">
+                If you find my work helpful, consider buying me a coffee! You can scan the QR code below or use any installed UPI app to send your support. Thank you!
+            </div>
+            
+            <div class="sheet-action-area coffee-animate">
+                <div class="qr-container">
+                    <img id="coffeeQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi%3A%2F%2Fpay%3Fpa%3Dabhivishrut%40ptyes%26pn%3DAbhivishrut%2520Janghu%26cu%3DINR" alt="UPI QR Code">
+                    <span class="qr-label">Scan to Pay via UPI</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModal(event)">X</div>
+            <img src="profile.webp" alt="Profile Picture" class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+    <script>
+        // Image Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function goToSlide(index) {
+            currentSlide = index;
+            const slider = document.getElementById('slider');
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }
+
+        // Auto-slide every 4 seconds
+        setInterval(nextSlide, 4000);
+
+        // Image Modal Functions
+        function openModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const profileImg = document.getElementById('profileImage');
+
+            modalImg.src = profileImg.src;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+
+            if (event.target === modal || event.target.classList.contains('close-btn')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                event.stopPropagation();
+            }
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('imageModal');
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+
+    <script>
+        // Dribbble Video Aesthetic - Click & Hold Animations
+        document.querySelectorAll('.glass-pill').forEach(pill => {
+            const activate = (e) => {
+                pill.classList.add('active-glow');
+            };
+            const deactivate = () => {
+                pill.classList.remove('active-glow');
+            };
+
+            pill.addEventListener('mousedown', activate);
+            pill.addEventListener('touchstart', activate, { passive: true });
+
+            pill.addEventListener('mouseup', deactivate);
+            pill.addEventListener('mouseleave', deactivate);
+            pill.addEventListener('touchend', deactivate);
+        });
+
+
+        // Bottom Sheet Logic
+        const bottomSheetOverlay = document.getElementById('appBottomSheet');
+
+        document.querySelectorAll('.app-card').forEach(app => {
+            app.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop navigation
+
+                // Read data from the card
+                const link = app.getAttribute('href');
+                const desc = app.getAttribute('data-description') || 'Discover amazing features in this application crafted with care.';
+                const iconSrc = app.querySelector('.app-icon img').src;
+                const name = app.querySelector('.app-name').innerText;
+                const dev = app.querySelector('.app-developer').innerText;
+
+                // Populate bottom sheet
+                document.getElementById('bsIcon').src = iconSrc;
+                document.getElementById('bsTitle').innerText = name;
+                document.getElementById('bsDeveloper').innerText = dev;
+                document.getElementById('bsDescription').innerText = desc;
+                document.getElementById('bsDownloadBtn').href = link;
+
+                // Generate Dynamic QR Code using an external API
+                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(link)}`;
+                document.getElementById('bsQrCode').src = qrUrl;
+
+                // Reset expanded state and scroll before showing
+                const bsPanel = document.querySelector('.bottom-sheet-panel');
+                bsPanel.classList.remove('expanded');
+                bsPanel.scrollTop = 0;
+
+                // Show bottom sheet
+                bottomSheetOverlay.classList.add('active');
+
+                // Trigger GSAP Pop Up Animation for Bottom Sheet Items
+                gsap.fromTo('.bs-animate',
+                    { y: 40, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.2)', delay: 0.15 }
+                );
+            });
+        });
+
+        // Close bottom sheet when clicking outside the panel
+        if (bottomSheetOverlay) {
+            bottomSheetOverlay.addEventListener('click', () => {
+                bottomSheetOverlay.classList.remove('active');
+            });
+        }
+
+        // --- Expandable Bottom Sheet Logic ---
+        const bsPanel = document.querySelector('.bottom-sheet-panel');
+        const handleElement = document.querySelector('.sheet-handle');
+
+        // Expand on scroll (wheel)
+        bsPanel.addEventListener('wheel', (e) => {
+            if (!bsPanel.classList.contains('expanded')) {
+                if (e.deltaY > 0) {
+                    bsPanel.classList.add('expanded');
+                    e.preventDefault(); // Stop initial jump
+                }
+            } else {
+                if (e.deltaY < 0 && bsPanel.scrollTop <= 0) {
+                    bsPanel.classList.remove('expanded');
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // Expand on touch swipe
+        let startY = 0;
+        let currentY = 0;
+
+        const handleTouchStart = (e) => {
+            startY = e.touches ? e.touches[0].clientY : e.clientY;
+        };
+
+        const handleTouchMove = (e) => {
+            currentY = e.touches ? e.touches[0].clientY : e.clientY;
+            let deltaY = currentY - startY;
+
+            if (!bsPanel.classList.contains('expanded')) {
+                if (deltaY < -20) { // swipe up
+                    bsPanel.classList.add('expanded');
+                } else if (deltaY > 50) { // swipe down
+                    bottomSheetOverlay.classList.remove('active');
+                }
+            } else {
+                if (deltaY > 50 && bsPanel.scrollTop <= 0) {
+                    bsPanel.classList.remove('expanded');
+                    startY = currentY; // reset anchor to prevent instant close
+                }
+            }
+        };
+
+        bsPanel.addEventListener('touchstart', handleTouchStart, { passive: true });
+        bsPanel.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+        // Mouse drag on handle
+        let isDragging = false;
+
+        handleElement.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startY = e.clientY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentY = e.clientY;
+            let deltaY = currentY - startY;
+
+            if (!bsPanel.classList.contains('expanded')) {
+                if (deltaY < -20) {
+                    bsPanel.classList.add('expanded');
+                    isDragging = false;
+                } else if (deltaY > 50) {
+                    bottomSheetOverlay.classList.remove('active');
+                    isDragging = false;
+                }
+            } else {
+                if (deltaY > 50 && bsPanel.scrollTop <= 0) {
+                    bsPanel.classList.remove('expanded');
+                    isDragging = false;
+                }
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Tap handle to toggle
+        handleElement.addEventListener('click', () => {
+            if (bsPanel.classList.contains('expanded')) {
+                bsPanel.classList.remove('expanded');
+            } else {
+                bsPanel.classList.add('expanded');
+            }
+        });
+
+        
+        // --- Coffee Bottom Sheet Logic ---
+        const coffeeSheetOverlay = document.getElementById('coffeeBottomSheet');
+        const coffeePanel = document.getElementById('coffeePanel');
+        const coffeeHandle = document.getElementById('coffeeHandle');
+        const coffeeBtn = document.getElementById('coffeeBtnElement');
+        
+        if(coffeeBtn) {
+            coffeeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent triggering the profile card dark mode toggle
+                
+                // Reset expanded state
+                coffeePanel.classList.remove('expanded');
+                coffeePanel.scrollTop = 0;
+                
+                // Show bottom sheet
+                coffeeSheetOverlay.classList.add('active');
+                
+                // Trigger GSAP Pop Up Animation
+                gsap.fromTo('.coffee-animate', 
+                    { y: 40, opacity: 0 }, 
+                    { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.2)', delay: 0.15 }
+                );
+            });
+        }
+        
+        if (coffeeSheetOverlay) {
+            coffeeSheetOverlay.addEventListener('click', () => {
+                coffeeSheetOverlay.classList.remove('active');
+            });
+        }
+        
+        // Expand on scroll (wheel)
+        coffeePanel.addEventListener('wheel', (e) => {
+            if (!coffeePanel.classList.contains('expanded')) {
+                if (e.deltaY > 0) { // scrolling down
+                    e.preventDefault();
+                    coffeePanel.classList.add('expanded');
+                }
+            } else {
+                if (coffeePanel.scrollTop === 0 && e.deltaY < 0) {
+                    e.preventDefault();
+                    coffeePanel.classList.remove('expanded');
+                }
+            }
+        });
+        
+        // Expand on touch swipe
+        let cStartY = 0;
+        let cCurrentY = 0;
+        
+        coffeePanel.addEventListener('touchstart', (e) => {
+            cStartY = e.touches ? e.touches[0].clientY : e.clientY;
+        }, { passive: true });
+        
+        coffeePanel.addEventListener('touchmove', (e) => {
+            cCurrentY = e.touches ? e.touches[0].clientY : e.clientY;
+            let deltaY = cCurrentY - cStartY;
+            
+            if (!coffeePanel.classList.contains('expanded')) {
+                if (deltaY < -20) { // swipe up
+                    coffeePanel.classList.add('expanded');
+                } else if (deltaY > 50) { // swipe down to close
+                    coffeeSheetOverlay.classList.remove('active');
+                }
+            } else {
+                if (coffeePanel.scrollTop <= 0 && deltaY > 30) {
+                    coffeePanel.classList.remove('expanded');
+                }
+            }
+        }, { passive: true });
+        
+        // Mouse drag on handle
+        let cIsDragging = false;
+        
+        if(coffeeHandle) {
+            coffeeHandle.addEventListener('mousedown', (e) => {
+                cIsDragging = true;
+                cStartY = e.clientY;
+            });
+            
+            window.addEventListener('mousemove', (e) => {
+                if (!cIsDragging) return;
+                cCurrentY = e.clientY;
+                let deltaY = cCurrentY - cStartY;
+                
+                if (!coffeePanel.classList.contains('expanded')) {
+                    if (deltaY < -20) {
+                        coffeePanel.classList.add('expanded');
+                        cIsDragging = false;
+                    } else if (deltaY > 30) {
+                        coffeeSheetOverlay.classList.remove('active');
+                        cIsDragging = false;
+                    }
+                } else {
+                    if (deltaY > 30) {
+                        coffeePanel.classList.remove('expanded');
+                        cIsDragging = false;
+                    }
+                }
+            });
+            
+            window.addEventListener('mouseup', () => {
+                cIsDragging = false;
+            });
+            
+            coffeeHandle.addEventListener('click', () => {
+                if (coffeePanel.classList.contains('expanded')) {
+                    coffeePanel.classList.remove('expanded');
+                } else {
+                    coffeePanel.classList.add('expanded');
+                }
+            });
+        }
+
+        // --- Restore Landing Page Pop Up Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.gsap-reveal').forEach((elem) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 90%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        // Dark/Light Mode Toggle
+        const profileCard = document.querySelector('.profile-card');
+        if (profileCard) {
+            profileCard.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.body.classList.toggle('dark-mode');
+            });
+        }
+    </script>
+
+
+    
+
+</body>
+
+</html>
